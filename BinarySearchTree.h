@@ -62,8 +62,7 @@ void BinarySearchTree<T>::remove(String* sk)
 {
    //DO THIS
 
-
-
+   root = removeItem(root, sk);
 
 
 }
@@ -73,6 +72,29 @@ TreeNode<T>* BinarySearchTree<T>::removeItem(TreeNode<T>* tNode, String* sk)
 {
    //DO THIS
 
+   T* key_comp = tNode->getItem();
+   int comp = (*compare_keys) (sk, key_comp);
+
+   if(comp == 0)
+    {
+      TreeNode<T>* remove_node = removeNode(tNode);
+       
+      return remove_node;
+      }
+
+   else if(comp < 0)
+   {
+     tNode = tNode->getLeft();
+     removeItem(tNode, sk);
+
+     }
+
+   else
+   {
+     tNode = tNode->getRight();
+     removeItem(tNode,sk);
+
+     }
 
 
 }
@@ -101,10 +123,14 @@ TreeNode<T>* BinarySearchTree<T>::removeNode(TreeNode<T>* tNode)
    {
       //DO THIS
 
+     T* item = findLeftMost(tNode->getRight());
 
+     tNode->setItem(item);
 
+     TreeNode<T>* remove_node = removeLeftMost(tNode->getRight());
+     tNode->setRight(remove_node);
 
-
+     return tNode;
    }
 }
 
