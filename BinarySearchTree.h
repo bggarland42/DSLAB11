@@ -51,7 +51,7 @@ class BinarySearchTree : public Drawable
       bool isBalanced();
 
       T** toArray();
-      static T** treeSort(T** items, int num_itemss, int (*comp_items) (T* item_1, T* item_2), int (*comp_keys) (String* key, T* item));
+      static T** treeSort(T** items, int num_items, int (*comp_items) (T* item_1, T* item_2), int (*comp_keys) (String* key, T* item));
 
       virtual void draw(Cairo::RefPtr<Cairo::Context> cr, int width, int height);
       virtual void mouseClicked(int x, int y);
@@ -176,7 +176,24 @@ T** BinarySearchTree<T>::toArray()
 {
    //DO THIS
 
+   T** sorted_cds = new T* [sze];
 
+   for(int i = 0; i < sze; i++)
+    {
+      TreeNode<T>* temp = removeLeftMost(root);
+
+      if(temp == root)
+       {
+         setRootNode(temp->getRight());
+
+         }
+      
+      sorted_cds[i] = temp->getItem();
+
+
+      }
+
+   return sorted_cds;
 
 }
 
@@ -184,6 +201,10 @@ template < class T >
 T** BinarySearchTree<T>::treeSort(T** items, int num_items, int (*comp_items) (T* item_1, T* item_2), int (*comp_keys) (String* key, T* item))
 {
    //DO THIS
+
+
+
+
 
 
 
