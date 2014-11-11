@@ -46,14 +46,16 @@ int main()
    //DO THIS
    //test your tree sort method
    CD** unsorted_cds = cds->toArray();
+   //cout << "after toArray" << endl;
    CD** sorted_cds = BinarySearchTree<CD>::treeSort(unsorted_cds, num_items, &CD::compare_items, &CD::compare_keys);
 
+   for(int i = 0; i < num_items; i++)
+   {
+     CD* temp = sorted_cds[i];
+     temp->displayCD();
+     }
 
-
-
-
-
-
+   //cout << "before delete" << endl;
 
 
    deleteCDs(cds);

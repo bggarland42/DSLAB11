@@ -7,6 +7,8 @@
 #include "Line.h"
 #include "Drawable.h"
 using CSC2110::String;
+#include <iostream>
+using namespace std;
 
 template < class T >
 class BinarySearchTree : public Drawable
@@ -153,7 +155,7 @@ TreeNode<T>* BinarySearchTree<T>::removeLeftMost(TreeNode<T>* tNode)
 {
    //DO THIS (recursion)
 
-   if(tNode->getLeft() = NULL)
+   if(tNode->getLeft() == NULL)
     {
       TreeNode<T>* right_node = tNode->getRight();
            
@@ -178,9 +180,26 @@ T** BinarySearchTree<T>::toArray()
 
    T** sorted_cds = new T* [sze];
 
+//do an inorder traversal, putting the items in the array
+
+   BinaryTreeIterator<T>* iter = iterator();
+   iter->setInorder();
+
+   int i = 0;
+
+   while(iter->hasNext())
+   {
+      T* item = iter->next();
+
+      sorted_cds[i] = item;
+
+      i++;
+     }
+
+/*
    for(int i = 0; i < sze; i++)
     {
-      TreeNode<T>* temp = removeLeftMost(root);
+      TreeNode<T>* temp = removeLeftMost(root);     //this method only works for removing, not for sorting an array
 
       if(temp == root)
        {
@@ -192,6 +211,7 @@ T** BinarySearchTree<T>::toArray()
 
 
       }
+   */
 
    return sorted_cds;
 
@@ -202,12 +222,19 @@ T** BinarySearchTree<T>::treeSort(T** items, int num_items, int (*comp_items) (T
 {
    //DO THIS
 
+   BinarySearchTree<T>* bst = new BinarySearchTree<T>(comp_items, comp_keys);
 
+   for(int i = 0; i < num_items; i++)
+   {
+    bst->insert(items[i]);
+     }
 
+    cout << "before toArray #2" << endl;
+	
+    T** sorted = bst->toArray();
+  cout << "after toArray #2" << endl;
 
-
-
-
+    return sorted;
 }
 
 template < class T >
